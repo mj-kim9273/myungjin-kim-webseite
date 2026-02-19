@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werke - Myung Jin Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="de">DE</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">KO</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Myung Jin Kim</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link" data-translate="navHome">Home</a></li>
+                    <li><a href="works.html" class="nav-link active" data-translate="navWorks">Werke</a></li>
+                    <li><a href="biography.html" class="nav-link" data-translate="navBio">Biografie</a></li>
+                    <li><a href="contact.html" class="nav-link" data-translate="navContact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-content">
+        <div class="container">
+            <h1 class="page-title" data-translate="worksTitle">Meine Werke</h1>
+            
+            <div class="category-grid">
+                <a href="paintings.html" class="category-card">
+                    <h2 data-translate="paintings">Gemälde</h2>
+                    <p data-translate="paintingsDesc">Entdecken Sie meine Gemälde</p>
+                </a>
+                
+                <a href="drawings.html" class="category-card">
+                    <h2 data-translate="drawings">Zeichnungen</h2>
+                    <p data-translate="drawingsDesc">Entdecken Sie meine Zeichnungen</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
