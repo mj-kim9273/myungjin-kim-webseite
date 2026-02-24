@@ -23,7 +23,10 @@ const translations = {
 		contactTitle: "Kontakt",
 		contactEmail: "E-Mail",
 		contactWebsite: "Webseite",
-		contactInstagram: "Instagram"
+		contactInstagram: "Instagram",
+
+		// NEU:
+		paintingsYearTitle: "{paintings} {year}"
 	},
 	en: {
 		subtitle: "Artist · Painter",
@@ -49,7 +52,10 @@ const translations = {
 		contactTitle: "Contact",
 		contactEmail: "Email",
 		contactWebsite: "Website",
-		contactInstagram: "Instagram"
+		contactInstagram: "Instagram",
+
+		// NEU:
+		paintingsYearTitle: "{paintings} {year}"
 	},
 	ko: {
 		subtitle: "예술가 · 화가",
@@ -75,37 +81,53 @@ const translations = {
 		contactTitle: "연락처",
 		contactEmail: "이메일",
 		contactWebsite: "사이트",
-		contactInstagram: "인스타"
+		contactInstagram: "인스타",
+
+		// NEU:
+		paintingsYearTitle: "{paintings} {year}"
 	}
 };
 
 let currentLang = localStorage.getItem("preferredLanguage") || "de";
 
+function applyTranslations(lang) {
+	document.documentElement.lang = lang;
+
+	document.querySelectorAll("[data-translate]").forEach((el) => {
+		const key = el.getAttribute("data-translate");
+		if (!translations[lang] || !translations[lang][key]) return;
+
+		// Spezialfall: Jahres-Titel "Paintings 2022" / "그림 2022"
+		if (key === "paintingsYearTitle") {
+			const year = el.getAttribute("data-year") || "";
+			const paintingsWord = translations[lang].paintings || "";
+			const template = translations[lang].paintingsYearTitle;
+			el.textContent = template
+				.replace("{paintings}", paintingsWord)
+				.replace("{year}", year);
+			return;
+		}
+
+		el.textContent = translations[lang][key];
+	});
+}
+
+function setActiveLangButton(lang) {
+	document.querySelectorAll(".lang-btn").forEach((btn) => {
+		btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+	});
+}
+
 function changeLanguage(lang) {
 	currentLang = lang;
 	localStorage.setItem("preferredLanguage", lang);
-
-	document.documentElement.lang = lang;
-
-	document.querySelectorAll("[data-translate]").forEach((element) => {
-		const key = element.getAttribute("data-translate");
-		if (translations[lang] && translations[lang][key]) {
-			element.textContent = translations[lang][key];
-		}
-	});
-
-	document.querySelectorAll(".lang-btn").forEach((btn) => {
-		btn.classList.remove("active");
-		if (btn.getAttribute("data-lang") === lang) {
-			btn.classList.add("active");
-		}
-	});
+	applyTranslations(lang);
+	setActiveLangButton(lang);
 }
 
 document.querySelectorAll(".lang-btn").forEach((button) => {
 	button.addEventListener("click", () => {
-		const lang = button.getAttribute("data-lang");
-		changeLanguage(lang);
+		changeLanguage(button.getAttribute("data-lang"));
 	});
 });
 
@@ -117,19 +139,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	);
 
 	if (animateElements.length > 0) {
-		const observerOptions = {
-			threshold: 0.1,
-			rootMargin: "0px 0px -50px 0px"
-		};
-
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.style.opacity = "1";
-					entry.target.style.transform = "translateY(0)";
-				}
-			});
-		}, observerOptions);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = "1";
+						entry.target.style.transform = "translateY(0)";
+					}
+				});
+			},
+			{ threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+		);
 
 		animateElements.forEach((el, index) => {
 			el.style.opacity = "0";
@@ -142,21 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	setupLightbox();
 });
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-	anchor.addEventListener("click", function (e) {
-		e.preventDefault();
-		const target = document.querySelector(this.getAttribute("href"));
-		if (target) {
-			target.scrollIntoView({
-				behavior: "smooth",
-				block: "start"
-			});
-		}
-	});
-});
-
 function setupLightbox() {
-	// Falls keine Galerie-Bilder auf der Seite sind, nichts tun
 	const galleryImgs = document.querySelectorAll(".gallery-item-clean img");
 	if (galleryImgs.length === 0) return;
 
@@ -186,7 +192,6 @@ function setupLightbox() {
 	}
 
 	lightboxClose.addEventListener("click", closeLightbox);
-
 	lightbox.addEventListener("click", (e) => {
 		if (e.target === lightbox) closeLightbox();
 	});
