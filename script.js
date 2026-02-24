@@ -19,13 +19,13 @@ const translations = {
 		birthPlace: "Geburtsort",
 		studio: "Atelier",
 		exhibitions: "Ausstellungen",
+		exhibitionsLegend: "Die folgenden Einträge sind überwiegend deutschsprachig. Begriffe: Gruppenausstellung, Einzelausstellung, Online-Ausstellung, Offene Ateliers.",
 		education: "Schulbildung / Studium",
 		contactTitle: "Kontakt",
 		contactEmail: "E-Mail",
 		contactWebsite: "Webseite",
 		contactInstagram: "Instagram",
 
-		// NEU:
 		paintingsYearTitle: "{paintings} {year}"
 	},
 	en: {
@@ -48,13 +48,13 @@ const translations = {
 		birthPlace: "Place of Birth",
 		studio: "Studio",
 		exhibitions: "Exhibitions",
+		exhibitionsLegend: "The following entries are mostly in German. Terms: group exhibition, solo exhibition, online exhibition, open studios.",
 		education: "Education",
 		contactTitle: "Contact",
 		contactEmail: "Email",
 		contactWebsite: "Website",
 		contactInstagram: "Instagram",
 
-		// NEU:
 		paintingsYearTitle: "{paintings} {year}"
 	},
 	ko: {
@@ -77,13 +77,13 @@ const translations = {
 		birthPlace: "출생지",
 		studio: "작업실",
 		exhibitions: "전시회",
+		exhibitionsLegend: "아래 항목은 대부분 독일어로 작성되어 있습니다. 용어: 그룹전, 개인전, 온라인 전시, 오픈 스튜디오.",
 		education: "학력",
 		contactTitle: "연락처",
 		contactEmail: "이메일",
 		contactWebsite: "사이트",
 		contactInstagram: "인스타",
 
-		// NEU:
 		paintingsYearTitle: "{paintings} {year}"
 	}
 };
@@ -97,7 +97,6 @@ function applyTranslations(lang) {
 		const key = el.getAttribute("data-translate");
 		if (!translations[lang] || !translations[lang][key]) return;
 
-		// Spezialfall: Jahres-Titel "Paintings 2022" / "그림 2022"
 		if (key === "paintingsYearTitle") {
 			const year = el.getAttribute("data-year") || "";
 			const paintingsWord = translations[lang].paintings || "";
@@ -112,6 +111,12 @@ function applyTranslations(lang) {
 	});
 }
 
+function updateLanguageBlocks(lang) {
+	document.querySelectorAll(".lang-block").forEach((block) => {
+		block.style.display = (block.getAttribute("data-lang-block") === lang) ? "" : "none";
+	});
+}
+
 function setActiveLangButton(lang) {
 	document.querySelectorAll(".lang-btn").forEach((btn) => {
 		btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
@@ -121,7 +126,9 @@ function setActiveLangButton(lang) {
 function changeLanguage(lang) {
 	currentLang = lang;
 	localStorage.setItem("preferredLanguage", lang);
+
 	applyTranslations(lang);
+	updateLanguageBlocks(lang);
 	setActiveLangButton(lang);
 }
 

@@ -53,7 +53,6 @@ h1, h2, h3, h4 {
 	-webkit-backdrop-filter: blur(8px);
 }
 
-/* Startseite: gleiche Position */
 .home-page .language-switcher {
 	right: 16px;
 	bottom: 16px;
@@ -479,6 +478,15 @@ header .container {
 
 .bio-section a:hover { color: var(--primary-color); }
 
+/* NEW: exhibitions legend */
+.exhibition-legend {
+	margin-top: -20px;
+	margin-bottom: 30px;
+	font-size: 14px;
+	color: #777;
+	letter-spacing: 0.2px;
+}
+
 /* Contact Section */
 .contact-content { max-width: 1000px; margin: 60px auto 0; }
 
@@ -571,7 +579,6 @@ header .container {
 	.bio-info-box,
 	.bio-section { padding: 30px; }
 
-	/* Buttons auf Mobile etwas kleiner, damit sie weniger Platz wegnehmen */
 	.language-switcher {
 		right: 10px;
 		bottom: 10px;
