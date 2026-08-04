@@ -19,8 +19,6 @@ const translations = {
         birthPlace: "Geburtsort",
         studio: "Atelier",
         exhibitions: "Ausstellungen",
-        exhibitionsLegend:
-            "Die folgenden Einträge sind überwiegend deutschsprachig. Begriffe: Gruppenausstellung, Einzelausstellung, Online-Ausstellung, Offene Ateliers.",
         education: "Schulbildung / Studium",
         contactTitle: "Kontakt",
         contactEmail: "E-Mail",
@@ -48,8 +46,6 @@ const translations = {
         birthPlace: "Place of Birth",
         studio: "Studio",
         exhibitions: "Exhibitions",
-        exhibitionsLegend:
-            "The following entries are mostly in German. Terms: group exhibition, solo exhibition, online exhibition, open studios.",
         education: "Education",
         contactTitle: "Contact",
         contactEmail: "Email",
